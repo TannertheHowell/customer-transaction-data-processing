@@ -1,6 +1,8 @@
 # Dataset.js 
 
-`dataset.js` is an integral part of our application, housing key data in two distinct arrays: `transactions` and `customers`. This structured data arrangement enables thorough analysis and operational use cases involving customer transactions.
+Brief overview: `dataset.js` is an integral part of our application, housing key data in two distinct arrays: `transactions` and `customers`. This structured data arrangement enables thorough analysis and operational use cases involving customer transactions.
+
+In the development of this application, I have implemented a local file dataset.js that mimics the data structure of a typical API response. This JSON object, containing comprehensive data on customers and transactions, serves as an efficient means to develop, test and debug our code. By not relying on external API calls during the initial stages of development, we avoid potential network latency, rate limiting, and other uncertainties that can arise from such dependencies. Furthermore, utilizing this local dataset helps us ensure a consistent data structure, which is crucial for reliable testing. As the application grows and when ready to integrate with a real-world API, this local dataset can be smoothly transitioned, due to its structured setup that closely emulates real-world data models.
 
 ## Transactions
 
