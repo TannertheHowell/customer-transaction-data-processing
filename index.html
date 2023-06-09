@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Transaction Data Processing</title>
     <link rel="stylesheet" href="style.css">
-    <script src="dataset.js"></script>
-    <script src="solution.js"></script>
 </head>
 <body>
 
@@ -20,9 +18,10 @@
     <ul>
         <li><h3>How many invalid customers are there?</h3></li>
             <ul>
-                <li>Valid transactions are always >$0 as well the transaction only including valid product(s)</li>
+                <li id="total-transactions-count">Total transactions and valid percentage: </li>
+                <li id="invalid-transactions-count">Invalid transactions: </li>
                     <ul>
-                        <li>Current valid products: FIG_JAM, FIG_JELLY, SPICY_FIG_JAM, and ORANGE_FIG_JELLY</li>
+                        <li>Current valid products are: FIG_JAM, FIG_JELLY, SPICY_FIG_JAM, and ORANGE_FIG_JELLY</li>
                     </ul>
             </ul>
         <li><h3>How many duplicate customers?</h3></li>
@@ -41,6 +40,8 @@
         <p>All of these questions' answers can be seen by checking the console.</p>
     </div>
 
+    <script src="dataset.js"></script>
+    <script src="solution.js"></script>
 </body>
 </html>
 

@@ -87,22 +87,29 @@ function reduce(data, reducer, initialValue) {
     return accumulatedResult;
 }
 
-// Task 1: How many invalid customers are there? - using filter
+// How many invalid customers are there and what percentage of customers are valid?
 let validTransactions = filter(transactions, t => {return(t.amount > 0 && t.amount != null)});
 validTransactions = filter(validTransactions, t => {return(t.product === "FIG_JAM" ||t.product === "FIG_JELLY" ||t.product === "SPICY_FIG_JAM" ||t.product === "ORANGE_FIG_JELLY")});
-let numValid = validTransactions.length; 
-let numInvalid = transactions.length - numValid;
-console.log("Number of invalid transactions: " + numInvalid);
+let numValidTransactions = validTransactions.length; 
+let numInvalidTransactions = transactions.length - numValidTransactions;
 
-// Task 2: How many duplicate customers? - using pairIf
+// Update the content of the bullet point in the HTML
+document.getElementById('invalid-transactions-count').innerText = "Number of invalid transactions: " + numInvalidTransactions;
+
+// Total transaction count and percentage of valid transactions
+let totalTransactions = transactions.length;
+let validTransactionPercent = ((numValidTransactions / totalTransactions) * 100).toFixed(2);  // Keep 2 decimal points for percentage
+document.getElementById('total-transactions-count').innerText = "Total transactions: " + totalTransactions + ", Valid transaction percentage: " + validTransactionPercent + "%";
+
+// How many duplicate customers? 
 let dupCustomers = pairIf(customers, customers, (customer1, customer2) => {return(customer1.emailAddress === customer2.emailAddress && customer1.id != customer2.id)});
 console.log("Number of duplicate customers: " + dupCustomers.length);
 
-// Task 3: How much was the last purchase for over $200?  - using findLast
+// How much was the last purchase for over $200?
 let lastBig = findLast(transactions, t => {return(t.amount > 200)});
 console.log("Most recent transaction over $200: $" + lastBig.amount);
 
-// Task 4: How many small (<25), medium(25<75) and large(75+) transactions are there? - using reduce once
+// How many small (<25), medium(25<75) and large(75+) transactions are there? 
 
 let transactionSizes = reduce(transactions, (value, accumulated) => {
   if (value.amount < 25) {
@@ -119,7 +126,7 @@ console.log("Number of small transactions: " + transactionSizes.small.length);
 console.log("Number of medium transactions: " + transactionSizes.medium.length);
 console.log("Number of large transactions: " + transactionSizes.large.length);
 
-// Task 5: Which customers had a transaction over $200 -using filter, pairIf, reduce, map 
+// Which customers had a transaction over $200 
     // Output it as a list of customer objects, then as a list of first last name strings
 let transactionsOver200 = filter(transactions, t => {return(t.amount > 200)});
 let highRollers = pairIf(transactionsOver200, customers, (transaction, customer) => {return(transaction.customerId === customer.id)});
