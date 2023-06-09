@@ -87,6 +87,12 @@ function reduce(data, reducer, initialValue) {
     return accumulatedResult;
 }
 
+// Define the currency format
+const currencyFormat = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
+
 // How many invalid customers are there and what percentage of customers are valid?
 let validTransactions = filter(transactions, t => {return(t.amount > 0 && t.amount != null)});
 
@@ -103,9 +109,7 @@ let totalTransactions = transactions.length;
 let validTransactionPercent = ((numValidTransactions / totalTransactions) * 100).toFixed(2);  // Keep 2 decimal points for percentage
 document.getElementById('total-transactions-count').innerText = "Total transactions: " + totalTransactions + ", Valid transaction percentage: " + validTransactionPercent + "%";
 
-// How many duplicate customers? 
-// let dupCustomers = pairIf(customers, customers, (customer1, customer2) => {return(customer1.emailAddress === customer2.emailAddress && customer1.id != customer2.id)});
-// console.log("Number of duplicate customers: " + dupCustomers.length);
+// Duplicate customers 
 
 // A helper function to check if a customer is in an array of customers
 function containsCustomer(customers, customer) {
@@ -143,14 +147,15 @@ document.getElementById('duplicate-customer-count').innerText = `Duplicate custo
 
 // How much was the last transaction for over $200?
 let lastBig = findLast(transactions, t => {return(t.amount > 200)});
+let formattedLastBigAmount = currencyFormat.format(lastBig.amount);
 
 // Find the customer who made the last big transaction
 let customerOfLastBigTransaction = findLast(customers, c => {return(c.id === lastBig.customerId)});
 
 // Insert the transaction and customer information for the most recent large transaction into the HTML
-document.getElementById('last-large-transaction').innerText = `The last total over $200 was: $${lastBig.amount} by ${customerOfLastBigTransaction.firstName} ${customerOfLastBigTransaction.lastName}`;
+document.getElementById('last-large-transaction').innerText = `The last total over $200 was: ${formattedLastBigAmount} by ${customerOfLastBigTransaction.firstName} ${customerOfLastBigTransaction.lastName}`;
 
-// Calculating the amount of small (<25), medium(25<75) and large(75+) transactions
+// Calculating the amount of small (<25), medium(25<75) and large(75+) transactions and total transactions
 let transactionSizes = reduce(transactions, (value, accumulated) => {
   if (value.amount < 25) {
     accumulated.small.push(value);
@@ -162,10 +167,42 @@ let transactionSizes = reduce(transactions, (value, accumulated) => {
   return accumulated;
 }, {small: [], medium: [], large: []});
 
-// Inserting the transaction counts into the HTML
-document.getElementById('small-transactions').innerText = `There are ${transactionSizes.small.length} small transactions in this set`;
-document.getElementById('medium-transactions').innerText = `There are ${transactionSizes.medium.length} medium transactions in this set`;
-document.getElementById('large-transactions').innerText = `There are ${transactionSizes.large.length} large transactions in this set`;
+let smallPercentage = (transactionSizes.small.length / totalTransactions * 100).toFixed(2);
+let mediumPercentage = (transactionSizes.medium.length / totalTransactions * 100).toFixed(2);
+let largePercentage = (transactionSizes.large.length / totalTransactions * 100).toFixed(2);
+
+// Inserting the transaction counts and percentages into the HTML
+document.getElementById('small-transactions').innerText = `Small Transactions: ${transactionSizes.small.length}`;
+document.getElementById('small-breakdown').innerText = `Percentage of Total Transactions: ${smallPercentage}%`;
+
+document.getElementById('medium-transactions').innerText = `Medium Transactions: ${transactionSizes.medium.length}`;
+document.getElementById('medium-breakdown').innerText = `Percentage of Total Transactions: ${mediumPercentage}%`;
+
+document.getElementById('large-transactions').innerText = `Large Transactions: ${transactionSizes.large.length}`;
+document.getElementById('large-breakdown').innerText = `Percentage of Total Transactions: ${largePercentage}%`;
+
+// Calculate the total revenue for each category
+let smallTotal = reduce(transactionSizes.small, (value, accumulated) => accumulated + value.amount, 0);
+let mediumTotal = reduce(transactionSizes.medium, (value, accumulated) => accumulated + value.amount, 0);
+let largeTotal = reduce(transactionSizes.large, (value, accumulated) => accumulated + value.amount, 0);
+
+// Formatting the totals
+let formattedSmallTotal = currencyFormat.format(smallTotal);
+let formattedMediumTotal = currencyFormat.format(mediumTotal);
+let formattedLargeTotal = currencyFormat.format(largeTotal);
+
+// Calculate the total revenue
+let totalRevenue = smallTotal + mediumTotal + largeTotal;
+
+// Calculate the percentage of total revenue for each category
+let smallPercentageRevenue = ((smallTotal / totalRevenue) * 100).toFixed(2);
+let mediumPercentageRevenue = ((mediumTotal / totalRevenue) * 100).toFixed(2);
+let largePercentageRevenue = ((largeTotal / totalRevenue) * 100).toFixed(2);
+
+// Insert the transaction revenues and their percentages of total revenue into the HTML
+document.getElementById('small-revenue').innerText = `Small Transactions Total Revenue: ${formattedSmallTotal}, Percentage of Total Revenue: ${smallPercentageRevenue}%`;
+document.getElementById('medium-revenue').innerText = `Medium Transactions Total Revenue: ${formattedMediumTotal}, Percentage of Total Revenue: ${mediumPercentageRevenue}%`;
+document.getElementById('large-revenue').innerText = `Large Transactions Total Revenue: ${formattedLargeTotal}, Percentage of Total Revenue: ${largePercentageRevenue}%`;
 
 // Which customers had a transaction over $200 
     // Output it as a list of customer objects, then as a list of first last name strings
