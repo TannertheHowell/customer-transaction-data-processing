@@ -13,10 +13,11 @@
         <h1>Welcome to the Customer Data Processer</h1>
     </div>
     
-    <h2> Here we will cover a range of useful facts about the customer data set:</h2>
+    <h2> Here we will cover a range of useful facts about the json of customer data:</h2>
 
     <ul>
-        <li><h3>How many invalid customers are there?</h3></li>
+        <div class="transaction-counts">
+            <li><h3>How many invalid transactions are there?</h3></li>
             <ul>
                 <li id="total-transactions-count">Total transactions and valid percentage: </li>
                 <li id="invalid-transactions-count">Invalid transactions: </li>
@@ -24,10 +25,20 @@
                         <li>Current valid products are: FIG_JAM, FIG_JELLY, SPICY_FIG_JAM, and ORANGE_FIG_JELLY</li>
                     </ul>
             </ul>
-        <li><h3>How many duplicate customers?</h3></li>
+        </div>
+        
+        <div class="customer-counts">
+            <li><h3>How many duplicate customers are there?</h3></li>
             <ul>
-                <li>Duplicate customers occur when 1 or more customers have the same email address</li>
+                <li id="total-customer-count">Total customer and valid percentage: </li>
+                <li id="duplicate-customer-count">Duplicate customers: </li>
+                    <ul>
+                        <li>Duplicate customers occur when 1 or more customers have the same email address</li>
+                    </ul>
             </ul>
+        </div>
+        
+            
         <li><h3>How much was the last purchase for over $200?</h3></li>
         <li><h3>How many small (&lt;$25), medium($25&lt;$75) and large($75+) transactions are there?</h3></li>
         <li><h3>Which customers had a transaction over $200</h3></li>

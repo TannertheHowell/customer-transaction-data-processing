@@ -104,8 +104,42 @@ let validTransactionPercent = ((numValidTransactions / totalTransactions) * 100)
 document.getElementById('total-transactions-count').innerText = "Total transactions: " + totalTransactions + ", Valid transaction percentage: " + validTransactionPercent + "%";
 
 // How many duplicate customers? 
-let dupCustomers = pairIf(customers, customers, (customer1, customer2) => {return(customer1.emailAddress === customer2.emailAddress && customer1.id != customer2.id)});
-console.log("Number of duplicate customers: " + dupCustomers.length);
+// let dupCustomers = pairIf(customers, customers, (customer1, customer2) => {return(customer1.emailAddress === customer2.emailAddress && customer1.id != customer2.id)});
+// console.log("Number of duplicate customers: " + dupCustomers.length);
+
+// A helper function to check if a customer is in an array of customers
+function containsCustomer(customers, customer) {
+  for (let i = 0; i < customers.length; i++) {
+    if (customers[i].emailAddress === customer.emailAddress) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// How many duplicate customers? 
+let dupCustomers = [];
+for (let i = 0; i < customers.length; i++) {
+  if (!containsCustomer(dupCustomers, customers[i]) && 
+      customers.some((customer, index) => 
+        index !== i && customer.emailAddress === customers[i].emailAddress)) {
+    dupCustomers.push(customers[i]);
+  }
+}
+
+// Compute the total number of customers
+let totalCustomerCount = customers.length;
+
+// Compute the percentage of non-duplicate customers
+let nonDupCustomerCount = totalCustomerCount - dupCustomers.length;
+let nonDupCustomerPercentage = (nonDupCustomerCount / totalCustomerCount) * 100;
+
+// Insert total customer count and non-duplicate customer percentage to the HTML
+document.getElementById('total-customer-count').innerText = `Total customers: ${totalCustomerCount}, Non-duplicate customers: ${nonDupCustomerPercentage.toFixed(2)}%`;
+
+// Insert duplicate customer count to the HTML
+document.getElementById('duplicate-customer-count').innerText = `Duplicate customers: ${dupCustomers.length}`;
 
 // How much was the last purchase for over $200?
 let lastBig = findLast(transactions, t => {return(t.amount > 200)});

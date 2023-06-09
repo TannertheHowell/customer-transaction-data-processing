@@ -8,3 +8,11 @@ p{
     font-style: italic;
     font-size: smaller;
 }
+
+.customer-counts{
+    background-color: rgb(5, 11, 14);
+}
+
+.transaction-counts{
+    background-color: rgb(48, 49, 49);
+}
