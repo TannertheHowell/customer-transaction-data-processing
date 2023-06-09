@@ -32,7 +32,7 @@ Here's an example of a transaction object:
 The `customers` array consists of objects, each of which represents a unique customer. Each customer object contains the following properties:
 
 - `id` (Number): A unique identifier for each customer.
-- `firstName` (String): The first name of the customer.
+- `firstName` (String): The customer's first name.
 - `lastName` (String): The customer's last name.
 - `emailAddress` (String): The customer's email address.
 
@@ -49,4 +49,4 @@ Here's an example of a customer object:
 }
 ```
 
-Thanks to its streamlined structure, `dataset.js` ensures efficient data handling and allows for seamless integration into various analytical operations and processes.
+`dataset.js` ensures efficient data handling and allows for seamless integration into various analytical operations and processes thanks to its streamlined structure,
