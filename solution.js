@@ -150,8 +150,7 @@ let customerOfLastBigTransaction = findLast(customers, c => {return(c.id === las
 // Insert the transaction and customer information for the most recent large transaction into the HTML
 document.getElementById('last-large-transaction').innerText = `The last total over $200 was: $${lastBig.amount} by ${customerOfLastBigTransaction.firstName} ${customerOfLastBigTransaction.lastName}`;
 
-// How many small (<25), medium(25<75) and large(75+) transactions are there? 
-
+// Calculating the amount of small (<25), medium(25<75) and large(75+) transactions
 let transactionSizes = reduce(transactions, (value, accumulated) => {
   if (value.amount < 25) {
     accumulated.small.push(value);
@@ -163,9 +162,10 @@ let transactionSizes = reduce(transactions, (value, accumulated) => {
   return accumulated;
 }, {small: [], medium: [], large: []});
 
-console.log("Number of small transactions: " + transactionSizes.small.length);
-console.log("Number of medium transactions: " + transactionSizes.medium.length);
-console.log("Number of large transactions: " + transactionSizes.large.length);
+// Inserting the transaction counts into the HTML
+document.getElementById('small-transactions').innerText = `There are ${transactionSizes.small.length} small transactions in this set`;
+document.getElementById('medium-transactions').innerText = `There are ${transactionSizes.medium.length} medium transactions in this set`;
+document.getElementById('large-transactions').innerText = `There are ${transactionSizes.large.length} large transactions in this set`;
 
 // Which customers had a transaction over $200 
     // Output it as a list of customer objects, then as a list of first last name strings
