@@ -143,7 +143,9 @@ document.getElementById('duplicate-customer-count').innerText = `Duplicate custo
 
 // How much was the last purchase for over $200?
 let lastBig = findLast(transactions, t => {return(t.amount > 200)});
-console.log("Most recent transaction over $200: $" + lastBig.amount);
+document.getElementById('last-large-purchase').innerText = `The last total over $200 was: $${lastBig.amount}`;
+
+// console.log("Most recent transaction over $200: $" + lastBig.amount);
 
 // How many small (<25), medium(25<75) and large(75+) transactions are there? 
 

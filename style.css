@@ -16,3 +16,7 @@ p{
 .transaction-counts{
     background-color: rgb(48, 49, 49);
 }
+
+.last-large-purchase{
+    background-color: rgb(90, 89, 89);
+}
