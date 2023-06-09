@@ -12,16 +12,16 @@ The `transactions` array contains individual objects, each representing a unique
 - `customerId` (Number): An identifier connecting the transaction to a specific customer.
 
 Transactions are further categorized based on their `amount`:
-- Under $25: Small
-- Between $25 and $75: Medium
-- $75 and above: Large
+- Small: Less than $25 
+- Medium: $25 to $75 
+- Large: More than $75
 
 Here's an example of a transaction object:
 
 ```json
 {
   "id": 12345,
-  "amount": 110.85,
+  "amount": 111.11,
   "product": "FIG_JAM",
   "customerId": 67890
 }
