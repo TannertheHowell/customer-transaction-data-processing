@@ -141,11 +141,14 @@ document.getElementById('total-customer-count').innerText = `Total customers: ${
 // Insert duplicate customer count to the HTML
 document.getElementById('duplicate-customer-count').innerText = `Duplicate customers: ${dupCustomers.length}`;
 
-// How much was the last purchase for over $200?
+// How much was the last transaction for over $200?
 let lastBig = findLast(transactions, t => {return(t.amount > 200)});
-document.getElementById('last-large-purchase').innerText = `The last total over $200 was: $${lastBig.amount}`;
 
-// console.log("Most recent transaction over $200: $" + lastBig.amount);
+// Find the customer who made the last big transaction
+let customerOfLastBigTransaction = findLast(customers, c => {return(c.id === lastBig.customerId)});
+
+// Insert the transaction and customer information for the most recent large transaction into the HTML
+document.getElementById('last-large-transaction').innerText = `The last total over $200 was: $${lastBig.amount} by ${customerOfLastBigTransaction.firstName} ${customerOfLastBigTransaction.lastName}`;
 
 // How many small (<25), medium(25<75) and large(75+) transactions are there? 
 
