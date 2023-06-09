@@ -89,6 +89,8 @@ function reduce(data, reducer, initialValue) {
 
 // How many invalid customers are there and what percentage of customers are valid?
 let validTransactions = filter(transactions, t => {return(t.amount > 0 && t.amount != null)});
+
+// This line can be updated with whatever the current valid products are 
 validTransactions = filter(validTransactions, t => {return(t.product === "FIG_JAM" ||t.product === "FIG_JELLY" ||t.product === "SPICY_FIG_JAM" ||t.product === "ORANGE_FIG_JELLY")});
 let numValidTransactions = validTransactions.length; 
 let numInvalidTransactions = transactions.length - numValidTransactions;
