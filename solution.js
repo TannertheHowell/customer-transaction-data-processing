@@ -93,7 +93,7 @@ const currencyFormat = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 });
 
-// How many invalid customers are there and what percentage of customers are valid?
+// How many invalid transactions are there and what percentage of customers are valid?
 let validTransactions = filter(transactions, t => {return(t.amount > 0 && t.amount != null)});
 
 // This line can be updated with whatever the current valid products are 
@@ -155,7 +155,7 @@ let customerOfLastBigTransaction = findLast(customers, c => {return(c.id === las
 // Insert the transaction and customer information for the most recent large transaction into the HTML
 document.getElementById('last-large-transaction').innerText = `The last total over $200 was: ${formattedLastBigAmount} by ${customerOfLastBigTransaction.firstName} ${customerOfLastBigTransaction.lastName}`;
 
-// Calculating the amount of small (<25), medium(25<75) and large(75+) transactions and total transactions
+// Calculating the amount of small (<$25), medium($25 < $75) and large($75+) transactions and total transactions
 let transactionSizes = reduce(transactions, (value, accumulated) => {
   if (value.amount < 25) {
     accumulated.small.push(value);
