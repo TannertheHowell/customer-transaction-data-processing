@@ -217,3 +217,44 @@ console.log(uniqueCustomers);
 let customerNames = map(uniqueCustomers, c => {return (c.firstName + " " + c.lastName)});
 console.log("Names of customers with transactions over $200: ");
 console.log(customerNames);
+
+
+  // Updating the page based on user input
+// Access transaction amount input
+let transactionAmountInput = document.getElementById("transaction-amount-input");
+
+// Add an event listener to update transaction amount
+document.getElementById("update-transaction").addEventListener('click', function() {
+  let newTransactionAmount = parseFloat(transactionAmountInput.value);
+
+  // Input verification and error prompt
+  if (isNaN(newTransactionAmount)) {
+      alert("Invalid transaction amount");
+      return;
+  }
+
+  // Update the question with the new transaction amount
+  document.getElementById('transaction-question').innerText = `How much was the last transaction for over $${newTransactionAmount}?`;
+
+  // How much was the last transaction for over $newTransactionAmount?
+  let lastBig = findLast(transactions, t => {return(t.amount > newTransactionAmount)});
+
+  // Check if a matching transaction was found before attempting to access its properties
+  if (!lastBig) {
+      alert(`No transactions over $${newTransactionAmount} found`);
+      return;
+  }
+
+  let formattedLastBigAmount = currencyFormat.format(lastBig.amount);
+
+  // Find the customer who made the last big transaction
+  let customerOfLastBigTransaction = findLast(customers, c => {return(c.id === lastBig.customerId)});
+
+  // Check if the customer exists before attempting to access their properties
+  if (customerOfLastBigTransaction) {
+      // Insert the transaction and customer information for the most recent large transaction into the HTML
+      document.getElementById('last-large-transaction').innerText = `The last total over $${newTransactionAmount} was: ${formattedLastBigAmount} by ${customerOfLastBigTransaction.firstName} ${customerOfLastBigTransaction.lastName}`;
+  } else {
+      alert("The customer who made the transaction doesn't exist");
+  }
+});
