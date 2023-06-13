@@ -259,3 +259,33 @@ document.getElementById("update-transaction").addEventListener('click', function
     console.log(`Names of customers with transactions over $${newTransactionAmount}: `);
     console.log(customerNames);
 });
+
+
+// Function to convert an array of objects to a CSV string
+function convertToCSV(data) {
+  const headers = Object.keys(data[0]).join(",") + "\n";
+  const rows = data.map(obj => Object.values(obj).join(",")).join("\n");
+  return headers + rows;
+}
+
+
+// Function to download a CSV file
+function downloadCSV(csv, filename) {
+  const csvBlob = new Blob([csv], { type: "text/csv" });
+  const csvURL = URL.createObjectURL(csvBlob);
+  const link = document.createElement("a");
+  link.href = csvURL;
+  link.download = filename;
+  link.click();
+}
+
+// Add event listeners to the buttons
+document.getElementById("save-customer-names").addEventListener("click", function () {
+  const csv = convertToCSV(map(uniqueCustomers, c => ({ firstName: c.firstName, lastName: c.lastName })));
+  downloadCSV(csv, "customer_names.csv");
+});
+
+document.getElementById("save-detailed-customer-list").addEventListener("click", function () {
+  const csv = convertToCSV(uniqueCustomers);
+  downloadCSV(csv, "detailed_customer_list.csv");
+});
