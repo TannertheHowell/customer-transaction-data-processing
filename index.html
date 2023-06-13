@@ -72,14 +72,21 @@
             </ul>
         </div>
         
-        <li><h3>Which customers had a transaction over $200</h3></li>
-            <ul>
-                <li>This is provided in 2 forms:</li><br>
-                    <ul>
-                        <li>A CSV file of customers' first and last names</li><button id="save-customer-names">Save Only Customer Names</button><br>
-                        <br><li>A CSV file containing customers' id number, first name, last name and email address</li><button id="save-detailed-customer-list">Save Detailed Customer List</button>
-                    </ul>
-            </ul>
+        <li>
+            <h3 id="customer-transaction-question">Which customers had a transaction over $200</h3>
+            <label for="customer-transaction-amount-input">Change transaction amount:</label>
+            <input type="text" id="customer-transaction-amount-input" value="200">
+            <button id="update-customer-transaction">Update</button>
+        </li>
+        <ul>
+            <li>This is provided in 2 forms:</li><br>
+                <ul>
+                    <li>A CSV file of customers' first and last names</li>
+                    <button id="save-customer-names">Save Only Customer Names</button><br>
+                    <br><li>A CSV file containing customers' id number, first name, last name and email address</li>
+                    <button id="save-detailed-customer-list">Save Detailed Customer List</button>
+                </ul>
+        </ul>
     </ul>
 
     <div class="foot-notes">

@@ -1,4 +1,5 @@
-// Functions to implement in a generic way
+
+let uniqueCustomers = [];
 
 /*
   filter: returns a subset of the input data that contains only the items for which the predicate returns true
@@ -208,7 +209,7 @@ document.getElementById('large-revenue').innerText = `Large Transactions Total R
     // Output it as a list of customer objects, then as a list of first last name strings
     let bigTransactions = filter(validTransactions, t => t.amount > 200);
     let highRollers = pairIf(bigTransactions, customers, (transaction, customer) => transaction.customerId === customer.id && !containsCustomer(dupCustomers, customer));
-    let uniqueCustomers = reduce(highRollers, (value, accumulatedResult) => {
+    uniqueCustomers = reduce(highRollers, (value, accumulatedResult) => {
         if (!accumulatedResult.includes(value[1])){
             accumulatedResult.push(value[1]);
         } return accumulatedResult;}, []);
@@ -288,4 +289,47 @@ document.getElementById("save-customer-names").addEventListener("click", functio
 document.getElementById("save-detailed-customer-list").addEventListener("click", function () {
   const csv = convertToCSV(uniqueCustomers);
   downloadCSV(csv, "detailed_customer_list.csv");
+});
+
+
+// Access transaction amount input
+let customerTransactionAmountInput = document.getElementById("customer-transaction-amount-input");
+
+// Add an event listener to update transaction amount
+document.getElementById("update-customer-transaction").addEventListener('click', function() {
+    let newCustomerTransactionAmount = parseFloat(customerTransactionAmountInput.value);
+
+    // Input verification and error prompt
+    if (isNaN(newCustomerTransactionAmount)) {
+        alert("Invalid transaction amount");
+        return;
+    }
+
+    // Update the question with the new transaction amount
+    document.getElementById('customer-transaction-question').innerText = `Which customers had a transaction over $${newCustomerTransactionAmount}?`;
+
+    // Which customers had a transaction over $newCustomerTransactionAmount?
+    // We only look at valid transactions now and exclude duplicate customers
+    let transactionsOverNewAmount = filter(validTransactions, t => {return(t.amount > newCustomerTransactionAmount)});
+    let highRollers = pairIf(transactionsOverNewAmount, customers, (transaction, customer) => {return(transaction.customerId === customer.id && !containsCustomer(dupCustomers, customer))});
+    uniqueCustomers = reduce(highRollers, (value, accumulatedResult) => {
+        if (!accumulatedResult.includes(value[1])){
+            accumulatedResult.push(value[1]);
+        } return accumulatedResult;}, []);
+    console.log(`Customers with transactions over $${newCustomerTransactionAmount}: `);
+    console.log(uniqueCustomers);
+    let customerNames = map(uniqueCustomers, c => {return (c.firstName + " " + c.lastName)});
+    console.log(`Names of customers with transactions over $${newCustomerTransactionAmount}: `);
+    console.log(customerNames);
+
+    // Add event listeners to the buttons
+    document.getElementById("save-customer-names").addEventListener("click", function () {
+      const csv = convertToCSV(map(uniqueCustomers, c => ({ firstName: c.firstName, lastName: c.lastName })));
+      downloadCSV(csv, "customer_names.csv");
+    });
+
+    document.getElementById("save-detailed-customer-list").addEventListener("click", function () {
+      const csv = convertToCSV(uniqueCustomers);
+      downloadCSV(csv, "detailed_customer_list.csv");
+    });
 });
