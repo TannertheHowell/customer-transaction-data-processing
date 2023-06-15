@@ -381,6 +381,7 @@ document.getElementById("save-last-large-purchase-report").addEventListener("cli
   downloadCSV(csv, "last_big_transaction.csv");
 
   // Print to the console
-  console.log(lastBigTransactionData);
+  console.log("The last large transaction was: ")
+  console.log(JSON.stringify(lastBigTransactionData));
 });
 
