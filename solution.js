@@ -1,4 +1,3 @@
-
 let uniqueCustomers = [];
 
 /*
@@ -219,7 +218,6 @@ document.getElementById('large-revenue').innerText = `Large Transactions Total R
     console.log("Names of customers with transactions over $200: ");
     console.log(customerNames);
 
-
   // Updating the page based on user input
 // Access transaction amount input
 let transactionAmountInput = document.getElementById("transaction-amount-input");
@@ -261,14 +259,12 @@ document.getElementById("update-transaction").addEventListener('click', function
     console.log(customerNames);
 });
 
-
 // Function to convert an array of objects to a CSV string
 function convertToCSV(data) {
   const headers = Object.keys(data[0]).join(",") + "\n";
   const rows = data.map(obj => Object.values(obj).join(",")).join("\n");
   return headers + rows;
 }
-
 
 // Function to download a CSV file
 function downloadCSV(csv, filename) {
@@ -348,7 +344,6 @@ document.getElementById("save-invalid-transaction-report").addEventListener("cli
   const csv = convertToCSV(invalidTransactions);
   downloadCSV(csv, "invalid_transactions.csv");
 });
-
 
 // Generating the duplicate customer report
 document.getElementById("save-duplicate-customer-report").addEventListener("click", function () {
