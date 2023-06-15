@@ -358,3 +358,29 @@ document.getElementById("save-duplicate-customer-report").addEventListener("clic
   const csv = convertToCSV(dupCustomers);
   downloadCSV(csv, "duplicate_customers.csv");
 });
+
+// Generating the report for the last big transaction
+document.getElementById("save-last-large-purchase-report").addEventListener("click", function () {
+
+  // Checking for bad transactions
+  if (!lastBig || !lastBig.product) {
+      console.error("Data for the last large purchase is not available or incomplete.");
+      return;
+  }
+
+  const lastBigTransactionData = [
+      {
+          'Transaction Amount': formattedLastBigAmount,
+          'Customer First Name': customerOfLastBigTransaction.firstName,
+          'Customer Last Name': customerOfLastBigTransaction.lastName,
+          'Product': lastBig.product
+      }
+  ];
+  
+  const csv = convertToCSV(lastBigTransactionData);
+  downloadCSV(csv, "last_big_transaction.csv");
+
+  // Print to the console
+  console.log(lastBigTransactionData);
+});
+
