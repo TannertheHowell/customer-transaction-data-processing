@@ -333,3 +333,18 @@ document.getElementById("update-customer-transaction").addEventListener('click',
       downloadCSV(csv, "detailed_customer_list.csv");
     });
 });
+
+// Generating the invalid transaction report
+document.getElementById("save-invalid-transaction-report").addEventListener("click", function () {
+  let invalidTransactions = filter(transactions, t => {
+      return t.amount <= 0 || t.amount == null || !(t.product === "FIG_JAM" || t.product === "FIG_JELLY" || t.product === "SPICY_FIG_JAM" || t.product === "ORANGE_FIG_JELLY")
+  });
+  
+  // Printing the invalid transaction to the console for checking them without having to download the file
+  console.log("Invalid transactions: ");
+  console.log(invalidTransactions);
+
+  // Downloadable report option
+  const csv = convertToCSV(invalidTransactions);
+  downloadCSV(csv, "invalid_transactions.csv");
+});

@@ -38,18 +38,18 @@
             </ul>
         </div>
 
-        <div class="input-transaction-amount">
-            <h3>Enter a transaction amount:</h3>
-            <input type="number" id="transaction-amount-input" value="200" min="0">
-            <button id="update-transaction">Update</button>
-        </div>
-        
         <div class="last-large-transaction">
             <li><h3 id="transaction-question">How much was the last transaction for over $200?</h3></li>
-            <ul>
-                <li id="last-large-transaction">The last transaction over $200 was: </li>
-            </ul>
+                <ul>
+                    <li id="last-large-transaction">The last transaction over $200 was: </li>
+                    <li>
+                        <label for="transaction-amount-input">Change transaction amount:</label>
+                        <input type="number" id="transaction-amount-input" value="200" min="0">
+                        <button id="update-transaction">Update</button>
+                    </li>
+                </ul>
         </div>
+        
         
         <div class="transaction-categories">
             <li><h3>How many small (&lt; $25), medium ($25 &lt; $75) and large ($75+) transactions are there?</h3></li>
@@ -71,22 +71,47 @@
                     </ul>
             </ul>
         </div>
+    </ul>
+
+    <h2>Reports that can be run and downloaded</h2>
+    <p>
+        In the following section different reports can be produced. These reports can be viewed in two different ways: The browsers console window, or downloaded as a .csv file. 
+        Reports are initally run with default values, like in the case of 'Which customers had a transaction over $200', but if a new value is entered and the update button is clicked,
+        then both the console report and the downloadable reports will be updated with the new requested value. The update button must be clicked after a value is entered before one of 
+        the save buttons is pressed or the report will still contain the old value. You can verify that the value has been updated by seeing the value change in the 'Which customers had 
+        a transaction over $____' line. If the dollar amount has changed, the new value is part of the console and savable reports. 
+    </p>    
+
+    <ul>
+        <div class="customers-over-an-amount-report">
+            <li>
+                <h3 id="customer-transaction-question">Which customers had a transaction over $200</h3>
+            </li>
+            <ul>
+                <li>This is provided in 2 forms:</li><br>
+                    <ul>
+                        <li>A CSV file of customers' first and last names</li>
+                        <button id="save-customer-names">Save Only Customer Names</button><br>
+                        <br><li>A CSV file containing customers' id number, first name, last name and email address</li>
+                        <button id="save-detailed-customer-list">Save Detailed Customer List</button>
+                    </ul>
+                <li>
+                    <label for="customer-transaction-amount-input">Change transaction amount:</label>
+                    <input type="text" id="customer-transaction-amount-input" value="200">
+                    <button id="update-customer-transaction">Update</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="invalid-transaction-report">
+            <li>
+                <h3>What transactions were invalid?</h3>
+                    <ul>
+                        <li><button id="save-invalid-transaction-report">Save The List of Invalid Transactions</button><br></li>
+                    </ul>
+            </li>
+        </div>
         
-        <li>
-            <h3 id="customer-transaction-question">Which customers had a transaction over $200</h3>
-            <label for="customer-transaction-amount-input">Change transaction amount:</label>
-            <input type="text" id="customer-transaction-amount-input" value="200">
-            <button id="update-customer-transaction">Update</button>
-        </li>
-        <ul>
-            <li>This is provided in 2 forms:</li><br>
-                <ul>
-                    <li>A CSV file of customers' first and last names</li>
-                    <button id="save-customer-names">Save Only Customer Names</button><br>
-                    <br><li>A CSV file containing customers' id number, first name, last name and email address</li>
-                    <button id="save-detailed-customer-list">Save Detailed Customer List</button>
-                </ul>
-        </ul>
     </ul>
 
     <div class="foot-notes">
