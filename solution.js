@@ -348,3 +348,13 @@ document.getElementById("save-invalid-transaction-report").addEventListener("cli
   const csv = convertToCSV(invalidTransactions);
   downloadCSV(csv, "invalid_transactions.csv");
 });
+
+
+// Generating the duplicate customer report
+document.getElementById("save-duplicate-customer-report").addEventListener("click", function () {
+  console.log("Duplicate customers: ");
+  console.log(dupCustomers);
+
+  const csv = convertToCSV(dupCustomers);
+  downloadCSV(csv, "duplicate_customers.csv");
+});

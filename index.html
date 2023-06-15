@@ -34,6 +34,8 @@
                 <li id="duplicate-customer-count">Duplicate customers: </li>
                     <ul>
                         <li>Duplicate customers occur when 1 or more customers have the same email address</li>
+                        <li>A report can be downloaded below in the Reports section</li>
+                        <!-- <li>A report can be downloaded <a href="#duplicate-report">here</a></li> -->
                     </ul>
             </ul>
         </div>
@@ -73,9 +75,9 @@
         </div>
     </ul>
 
-    <h2>Reports that can be run and downloaded</h2>
+    <h2>Reports</h2>
     <p>
-        In the following section different reports can be produced. These reports can be viewed in two different ways: The browsers console window, or downloaded as a .csv file. 
+        In the following section different reports can be produced. These reports can be viewed in two different ways: The browser's console window, or downloaded as a .csv file. 
         Reports are initally run with default values, like in the case of 'Which customers had a transaction over $200', but if a new value is entered and the update button is clicked,
         then both the console report and the downloadable reports will be updated with the new requested value. The update button must be clicked after a value is entered before one of 
         the save buttons is pressed or the report will still contain the old value. You can verify that the value has been updated by seeing the value change in the 'Which customers had 
@@ -106,9 +108,14 @@
         <div class="invalid-transaction-report">
             <li>
                 <h3>What transactions were invalid?</h3>
-                    <ul>
-                        <li><button id="save-invalid-transaction-report">Save The List of Invalid Transactions</button><br></li>
-                    </ul>
+                <button id="save-invalid-transaction-report">Save The List of Invalid Transactions</button>
+            </li>
+        </div>
+
+        <div class="duplicate-customer-report" id="duplicate-report">
+            <li>
+                <h3>Which customers have duplicate accounts?</h3>
+                <button id="save-duplicate-customer-report">Save The Duplicate Customer Report</button>
             </li>
         </div>
         
